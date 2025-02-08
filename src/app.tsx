@@ -73,16 +73,13 @@ const App = (_props: Props) => {
 
             <div className="flex items-center flex-wrap gap-2 mb-5">
               <button
-                className="btn border-amber-600  bg-amber-500/10 hover:bg-amber-500 hover:text-white  text-amber-700"
+                className="btn border-blue-600  bg-blue-500 hover:bg-blue-600 text-white"
                 onClick={getSVG}
               >
                 Generate SVG
               </button>
-              <button className="btn border-blue-600  bg-blue-500/10 hover:bg-blue-500 hover:text-white  text-blue-700">
-                Generate Color SVG
-              </button>
               <button
-                className="btn border-red-600  bg-red-500/10 hover:bg-red-500 hover:text-white  text-red-700"
+                className="btn border-red-600  bg-red-500 hover:bg-red-600 text-white"
                 onClick={clearFile}
               >
                 Remove
