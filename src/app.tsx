@@ -21,7 +21,18 @@ const App = (_props: Props) => {
     setFile({ ...selected, preview: URL.createObjectURL(selected) });
   };
 
+  const clearFile = () => {
+    if (file) {
+      URL.revokeObjectURL(file.preview);
+    }
+    setFile(null);
+    setSvgs([]);
+    setLoading(false);
+  };
+
   const getSVG = () => {
+    setSvgs([]);
+
     const image = file?.preview;
 
     if (!image) {
@@ -29,9 +40,10 @@ const App = (_props: Props) => {
       return;
     }
 
+    setLoading(true);
     const trace = new Posterizer();
 
-    trace.loadImage(image, (error) => {
+    trace.loadImage(image, (_, error) => {
       if (error) {
         console.error("Trace Error: ", error);
         setLoading(false);
@@ -45,6 +57,7 @@ const App = (_props: Props) => {
       const content = trace.getSVG();
 
       setSvgs((prev) => [...prev, content]);
+      setLoading(false);
     });
   };
 
@@ -68,7 +81,10 @@ const App = (_props: Props) => {
               <button className="btn border-blue-600  bg-blue-500/10 hover:bg-blue-500 hover:text-white  text-blue-700">
                 Generate Color SVG
               </button>
-              <button className="btn border-red-600  bg-red-500/10 hover:bg-red-500 hover:text-white  text-red-700">
+              <button
+                className="btn border-red-600  bg-red-500/10 hover:bg-red-500 hover:text-white  text-red-700"
+                onClick={clearFile}
+              >
                 Remove
               </button>
             </div>
